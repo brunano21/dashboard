@@ -23,10 +23,10 @@ Activate the virtual environment
 
 	. venv/bin/activate
 
-Install project's dependencies
+Install project's dependencies (python's and bower's)
 
 	pip install -r requirements.txt
-	bower install
+	cd server && bower install && cd ..
 
 Tell Flask where your main application lives
 
