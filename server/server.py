@@ -11,27 +11,34 @@ from pprint import pprint
 import googlemaps
 from threading import Thread
 import os
-from .DatabaseManager import DatabaseManager
+from DatabaseManager import DatabaseManager
 eventlet.monkey_patch()
 
+# Initiliaze the app
 app = Flask(__name__, static_url_path="/static")
 CORS(app)
+socketio = SocketIO(app)
 
 # Generic configuration for the app.
 app.config.update(dict(
     DATABASE=os.path.join(app.root_path, "database.db"),
+    HOST="127.0.0.1",
+    PORT=5000,
+    TESTING=False,
     DEBUG=True,
     SECRET_KEY="my-super-secret-key",
     MAPS_KEY="AIzaSyAqhytct605m66JtpY4grvk8D0n9fbQMV0"
 ))
 
-# instantiate Google Maps client
+# Instantiate the Google Maps client
 gmaps = googlemaps.Client(key=app.config["MAPS_KEY"])
 
-# get ref to the database
-dbmgr = DatabaseManager(app.config["DATABASE"])
+# Global ref to the database
+dbmgr = None
 
-socketio = SocketIO(app)
+
+def init_db(db_path, drop_table):
+    return DatabaseManager(db_path, drop_table)
 
 
 def send_data(lat, lng, app_id, short_name, long_name, d_at):
@@ -132,7 +139,6 @@ def newData():
     else:
         pprint("Geo-data not valid")
         res = "NO"
-
     return res
 
 
@@ -150,4 +156,6 @@ def test_disconnect():
     print('Client disconnected')
 
 
-socketio.run(app)
+if __name__ == '__main__':
+    dbmgr = init_db(app.config["DATABASE"], app.config["TESTING"])
+    socketio.run(app, host=app.config["HOST"], port=app.config["PORT"])

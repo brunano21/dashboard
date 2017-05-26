@@ -28,18 +28,18 @@ Install project's dependencies (python's and bower's)
 	pip install -r requirements.txt
 	cd server && bower install && cd ..
 
-Tell Flask where your main application lives
+From `<project root folder>/generator` run the server,
 
-	export FLASK_APP=server/server.py
+	python server.py
 
-Run the server
-
-	flask run
-
-Access to the application
+Access to the application at
 
 	http://127.0.0.1:5000/
 
-In order to run the generator, open a new terminal, into the `<project root folder>/generator` and run:
+In order to run the generator, open a new terminal, from `<project root folder>/generator` folder run:
 
 	python generator.py
+
+In order to run tests, from `<project root folder>/server/tests` run
+
+	python test.py

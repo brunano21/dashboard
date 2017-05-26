@@ -11,14 +11,15 @@ import sqlite3
 
 class DatabaseManager(object):
 
-    def __init__(self, db):
+    def __init__(self, db, drop):
         self.conn = sqlite3.connect(db)
         self.conn.row_factory = self.dict_factory
-        # self.conn.execute('''DROP TABLE downloads''')
-        # self.conn.execute('''CREATE TABLE downloads
-        #           (lat real, lng real, app_id text,
-        #           loc_short text, loc_long text, downloaded_at real)''')
-        # self.conn.commit()
+        if drop is True:
+            self.conn.execute('''DROP TABLE IF EXISTS downloads''')
+            self.conn.execute('''CREATE TABLE downloads
+                    (lat real, lng real, app_id text,
+                    loc_short text, loc_long text, downloaded_at real)''')
+        self.conn.commit()
         self.cur = self.conn.cursor()
 
     def __del__(self):
