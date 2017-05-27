@@ -28,7 +28,7 @@ Install project's dependencies (python's and bower's)
 	pip install -r requirements.txt
 	cd server && bower install && cd ..
 
-From `<project root folder>/generator` run the server,
+From `<project root folder>/server` run the server,
 
 	python server.py
 
