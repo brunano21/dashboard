@@ -1,5 +1,5 @@
 In order to run this, make sure you have installed:
-- bower
+- bower (`npm install -g bower` - requires `node`, `npm` and `git`)
 - python v2.7
 
 Then follow the below steps:
@@ -36,7 +36,7 @@ Access to the application at
 
 	http://127.0.0.1:5000/
 
-The generator is a script that randomly creates and posts data to the server in order to emulate user's download. To run the generator, open a new terminal, from `<project root folder>/generator` folder run:
+In order to run the generator, open a new terminal, from `<project root folder>/generator` folder run:
 
 	python generator.py
 
